@@ -7,20 +7,27 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  *
  * @author Denis Colliot (denis.colliot@zenika.com)
  */
-public abstract class AbstractModel {
+// Should not be abstract.
+public class ModelWithUri extends AbstractModel {
+
+    private String uri;
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String toString() {
+    public final String toString() {
         final ToStringBuilder builder = new ToStringBuilder(this);
+        builder.append("uri", uri);
         appendToString(builder);
         return builder.toString();
     }
 
-    protected void appendToString(final ToStringBuilder builder) {
-        // Default implementation does nothing.
+    public String getUri() {
+        return uri;
     }
 
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
 }

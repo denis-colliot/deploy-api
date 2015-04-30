@@ -2,8 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:forEach var="build" items="${builds.builds}" varStatus="status">
-    <div>
-        <input type="checkbox" id="build-${status.index}" class="build-cb" />
-        <label for="build-${status.index}" class="build-label">${build.uri}</label>
+    <c:set var="buildId" value="build-${status.index}" scope="page" />
+
+    <div class="build-row">
+        <div class="build-wrapper">
+            <input type="checkbox" id="${buildId}" class="build-cb" value="${build.uri}" />
+            <label for="${buildId}" class="build-label">${build.uri}</label>
+        </div>
+        <div class="buildNumber-wrapper">
+            <select name="buildNumber" id="${buildId}-numbers" disabled="true"></select>
+        </div>
     </div>
 </c:forEach>

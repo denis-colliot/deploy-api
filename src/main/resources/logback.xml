@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds">
+
+	<!-- Note: This file is automatically reloaded every 60 seconds. -->
+
+	<!--
+	===========================================================================================
+	PROPERTIES.
+	===========================================================================================
+	-->
+
+	<property name="FILE_ALL_PATH" value="${catalina.base}/logs/osb-deployApi-all.log" />
+	<property name="FILE_WARN_PATH" value="${catalina.base}/logs/osb-deployApi-warns.log" />
+	<property name="FILE_ERROR_PATH" value="${catalina.base}/logs/osb-deployApi-errors.log" />
+
+	<property name="PATTERN"
+		value="[%-5level] {%d{dd/MM/yyyy HH:mm:ss.SSS}} [%thread] %logger{35} - %msg%n" />
+
+	<!--
+	===========================================================================================
+	APPENDERS.
+	===========================================================================================
+	-->
+	
+	<!-- Stdout appender. -->
+	<appender name="CONSOLE_APPENDER" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- File (all logs) appender. -->
+	<appender name="FILE_ALL_APPENDER"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${FILE_ALL_PATH}</file>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                        <!-- daily rollover -->
+			<fileNamePattern>${FILE_ALL_PATH}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>${PATTERN}</pattern>
+		</encoder>
+	</appender>
+        
+	<!-- File warnings (only) appender. -->
+	<appender name="FILE_WARN_APPENDER"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${FILE_WARN_PATH}</file>
+
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>WARN</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                        <!-- daily rollover -->
+			<fileNamePattern>${FILE_WARN_PATH}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>${PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- File errors (and above) appender. -->
+	<appender name="FILE_ERROR_APPENDER"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${FILE_ERROR_PATH}</file>
+
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                        <!-- daily rollover -->
+			<fileNamePattern>${FILE_ERROR_PATH}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>${PATTERN}</pattern>
+		</encoder>
+	</appender>
+	
+	<!--
+	===========================================================================================
+	LOGGERS (must be placed AFTER appenders definition).
+	===========================================================================================
+	-->
+
+	<root level="WARN">
+		<appender-ref ref="CONSOLE_APPENDER" />
+		<appender-ref ref="FILE_ALL_APPENDER" />
+		<appender-ref ref="FILE_WARN_APPENDER" />
+		<appender-ref ref="FILE_ERROR_APPENDER" />
+	</root>
+
+	<logger name="org.springframework" level="INFO" />
+	<logger name="fr.osb.deployapi" level="DEBUG" />
+
+</configuration>

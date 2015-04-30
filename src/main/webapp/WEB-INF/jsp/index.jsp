@@ -10,6 +10,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="../../scripts/getScript.fix.js"></script>
+    <script src="../../scripts/spin.min.js"></script>
     <script>
     $(document).ready(function() { $.getScript('../../scripts/scripts.js'); });
 
@@ -23,15 +24,28 @@
 </head>
 <body>
 
-    <div class="app-title"> Deploy API </div>
+    <div class="app-title">
+        <div>Deploy API (${projectVersion})</div>
+        <div id="ajaxLoader" class="ajax-loader"></div>
+    </div>
 
-    <div class="content">
+    <div class="container">
 
         <!-- Builds. -->
-        <div id="builds-wrapper"></div>
+        <div id="builds-wrapper" class="block">
+            <div class="title">Builds to deploy</div>
+            <div class="content"></div>
+        </div>
 
         <!-- Environments. -->
-        <div id="environments-wrapper"></div>
+        <div id="environments-wrapper" class="block">
+            <div class="title">Target environment</div>
+            <div class="content"></div>
+        </div>
+
+        <div style="display: flex; flex-direction: row; justify-content: flex-end;">
+            <button class="deploy-button" style="padding: 5px;">Deploy!</button>
+        </div>
 
     </div>
 

@@ -6,15 +6,55 @@
 body {
     font-family: 'Open Sans', sans-serif;
     font-size: 14px;
+    background-color: #DEDEDE;
 }
 
 .app-title {
-    background-color:  #ccc;
+    background-color: #308DDB;
     color: white;
     font-size: 20px;
     padding: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+.ajax-loader {
+    position: relative;
+    color: white;
+    margin-right: 40px;
 }
 
-.content {
+.container {
     padding: 20px;
+}
+
+.container .block {
+    background-color: white;
+    margin-bottom: 15px;
+}
+.container .block:last-child {
+    margin-bottom: 0;
+}
+
+.block .title {
+    font-weight: bold;
+    font-size: 18px;
+    padding: 15px;
+    padding-bottom: 0;
+}
+.block .content {
+    padding: 15px;
+}
+
+
+
+.build-row {
+    display: flex;
+    flex-direction: row;
+    padding: 5px 0;
+}
+.build-wrapper {
+    min-width: 230px;
+}
+.buildNumber-wrapper select {
+    width: 80px;
 }

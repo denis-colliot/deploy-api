@@ -1,6 +1,7 @@
 package fr.osb.deployapi.model;
 
-import fr.osb.deployapi.model.base.AbstractModel;
+import fr.osb.deployapi.model.base.ModelWithUri;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.List;
 
@@ -9,21 +10,24 @@ import java.util.List;
  *
  * @author Denis Colliot (denis.colliot@zenika.com)
  */
-public class Builds extends AbstractModel {
+public class Builds extends ModelWithUri {
 
-    private List<Build> builds;
+    private List<ModelWithUri> builds;
 
-    public List<Build> getBuilds() {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected void appendToString(final ToStringBuilder builder) {
+        builder.append("builds", builds);
+    }
+
+    public List<ModelWithUri> getBuilds() {
         return builds;
     }
 
-    public void setBuilds(List<Build> builds) {
+    public void setBuilds(List<ModelWithUri> builds) {
         this.builds = builds;
     }
 
-    public static class Build extends AbstractModel {
-
-        // No specific attribute.
-
-    }
 }

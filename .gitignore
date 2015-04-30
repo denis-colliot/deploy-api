@@ -1,5 +1,6 @@
 # Maven.
 target
+catalina.base_IS_UNDEFINED
 
 # IntelliJ IDEA.
 *.idea
