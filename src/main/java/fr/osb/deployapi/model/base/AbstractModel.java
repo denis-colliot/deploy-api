@@ -19,6 +19,18 @@ public abstract class AbstractModel {
         return builder.toString();
     }
 
+    /**
+     * <p>Appends the necessary properties to the given {@code builder}.
+     * Avoid appending large data or collection.</p>
+     * <p>Use it this way:</p>
+     * <pre>
+     * builder.append("property name", property);
+     * builder.append("other property name", otherProperty);
+     * </pre>
+     *
+     * @param builder
+     *         The {@code toString} builder, never {@code null}.
+     */
     protected void appendToString(final ToStringBuilder builder) {
         // Default implementation does nothing.
     }

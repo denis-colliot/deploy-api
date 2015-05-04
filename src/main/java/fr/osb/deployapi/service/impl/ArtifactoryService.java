@@ -56,6 +56,8 @@ public class ArtifactoryService implements RepositoryManagerService {
     @Override
     public Builds getAllBuilds() {
 
+        LOGGER.debug("Retrieving all builds identifiers.");
+
         final ResponseEntity<Builds> response = restTemplate.exchange(Paths.p(repositoryManagerApi, "build"),
                 HttpMethod.GET, HttpEntity.EMPTY, Builds.class);
 
@@ -71,8 +73,10 @@ public class ArtifactoryService implements RepositoryManagerService {
     public BuildsNumbers getBuildNumbers(final String build) {
 
         if (StringUtils.isBlank(build)) {
-            throw new IllegalArgumentException("Invalid build name.");
+            throw new IllegalArgumentException("Invalid build identifier.");
         }
+
+        LOGGER.debug("Retrieving build '{}' latest version available numbers.", build);
 
         final ResponseEntity<BuildsNumbers> response = restTemplate.exchange(Paths.p(repositoryManagerApi, "build", build),
                 HttpMethod.GET, HttpEntity.EMPTY, BuildsNumbers.class);
@@ -81,7 +85,7 @@ public class ArtifactoryService implements RepositoryManagerService {
 
         Collections.sort(buildsNumbers.getBuildsNumbers());
 
-        LOGGER.debug("Build '{}' numbers: {}", build, buildsNumbers);
+        LOGGER.debug("Build '{}' available numbers: {}", build, buildsNumbers);
 
         return buildsNumbers;
     }
@@ -96,13 +100,15 @@ public class ArtifactoryService implements RepositoryManagerService {
             throw new IllegalArgumentException("Invalid build identifier.");
         }
 
+        LOGGER.debug("Retrieving build '{}' #{} information.", build, number);
+
         final HttpHeaders header = new HttpHeaders();
         header.add("Authorization", "Basic " + Base64.getEncoder().encodeToString(repositoryManagerAuth.getBytes()));
 
         final ResponseEntity<BuildInfo> response = restTemplate.exchange(Paths.p(repositoryManagerApi, "build", build, number),
                 HttpMethod.GET, new HttpEntity<Object>(header), BuildInfo.class);
 
-        LOGGER.debug("Build '{}' number {} information: {}", build, number, response.getBody());
+        LOGGER.debug("Build '{}' #{} information: {}", build, number, response.getBody());
 
         return response.getBody();
     }
@@ -112,6 +118,8 @@ public class ArtifactoryService implements RepositoryManagerService {
      */
     @Override
     public FileInfo getBuildArtifact(final String build, final Integer number) {
+
+        LOGGER.debug("Retrieving build '{}' #{} deployable artifact information.", build, number);
 
         // --
         // Retrieving build info.
@@ -153,14 +161,14 @@ public class ArtifactoryService implements RepositoryManagerService {
 
         final GavSearchResults searchResult = response.getBody();
 
-        LOGGER.debug("Build '{}' #{} GAV search results: {}", build, number, searchResult);
+        LOGGER.trace("Build '{}' #{} GAV search results: {}", build, number, searchResult);
 
         FileInfo artifact = null;
 
         for (final ModelWithUri hasUri : searchResult.getResults()) {
 
             if (!DeployableType.isType(hasUri.getUri(), deployableType)) {
-                LOGGER.debug("Artifact '{}' does not match deployable type '{}'.", hasUri, deployableType);
+                LOGGER.trace("Artifact '{}' does not match deployable type '{}'.", hasUri, deployableType);
                 continue;
             }
 
@@ -171,6 +179,8 @@ public class ArtifactoryService implements RepositoryManagerService {
                 break;
             }
         }
+
+        LOGGER.debug("Build '{}' #{} deployable artifact information: {}", build, number, artifact);
 
         return artifact;
     }

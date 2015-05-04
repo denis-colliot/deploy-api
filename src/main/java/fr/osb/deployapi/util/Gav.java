@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created on 29/04/15.
+ * Maven "<b>G</b>roup - <b>A</b>rtifact - <b>V</b>ersion" corresponding java bean.
  *
  * @author Denis Colliot (denis.colliot@zenika.com)
  */

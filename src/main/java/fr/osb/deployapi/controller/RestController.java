@@ -3,6 +3,7 @@ package fr.osb.deployapi.controller;
 import fr.osb.deployapi.model.BuildInfo;
 import fr.osb.deployapi.model.BuildsNumbers;
 import fr.osb.deployapi.model.FileInfo;
+import fr.osb.deployapi.service.DeployService;
 import fr.osb.deployapi.service.RepositoryManagerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,12 @@ public class RestController {
      */
     @Autowired
     private RepositoryManagerService repositoryManagerService;
+
+    /**
+     * Injected service.
+     */
+    @Autowired
+    private DeployService deployService;
 
     @RequestMapping(value = "/build-info/{build}/{number}", method = RequestMethod.GET)
     BuildInfo getBuildInfo(@PathVariable("build") final String build,
@@ -66,7 +73,7 @@ public class RestController {
 
         LOGGER.info("Deploying build '{}' #{} on environment '{}'.", build, number, env);
 
-        // TODO
+        deployService.deploy(env, build, number);
     }
 
 }
