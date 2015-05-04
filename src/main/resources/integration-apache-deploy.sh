@@ -33,6 +33,10 @@ then
 fi
 
 FILE_NAME=$(basename $ARTIFACT_URL)
+FILE_EXTENSION="${FILE_NAME##*.}"
+
+echo "Creating work directories (if they don't exist)"
+mkdir -p $WORK_FOLDER
 
 echo "Downloading artifact '$FILE_NAME' into '$WORK_FOLDER'"
 wget --directory-prefix=WORK_FOLDER $ARTIFACT_URL
@@ -43,12 +47,13 @@ service $APACHE_SERVICE stop
 echo "Replacing content of repertory '$APACHE_WWW_REP'."
 rm -rf $APACHE_WWW_REP/*
 find $APACHE_WWW_REP -type f -name '.*' | xargs rm
+# TODO handle other extensions than 'zip'.
 unzip $WORK_FOLDER/$FILE_NAME -d $APACHE_WWW_REP
 
 echo "Starting Apache service."
 service $APACHE_SERVICE start
 
-echo "Deleting downloaded archive from directory '$WORK_FOLDER'."
-rm -f $WORK_FOLDER/*.zip
+echo "Deleting previous downloaded archives from directory '$WORK_FOLDER'."
+find $WORK_FOLDER ! -name '$FILE_NAME' -regex ".*\.$FILE_EXTENSION" -exec rm -f {} +
 
 echo "Build #$BUILD_NUMBER deployment complete."

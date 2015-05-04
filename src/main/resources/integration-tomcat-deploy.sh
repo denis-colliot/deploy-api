@@ -52,11 +52,11 @@ rm -rf $TOMCAT_HOME/logs/*
 echo "Removing existing ROOT webapp (if any)"
 rm -rf $TOMCAT_HOME/webapps/ROOT*
 
-echo "Removing previous artifact with extension '.$FILE_EXTENSION'"
-rm $WORK_FOLDER/*.$FILE_EXTENSION
-
 echo "Creating symbolic link pointing to downloaded artifact"
 ln -s $WORK_FOLDER/$FILE_NAME $TOMCAT_HOME/webapps/ROOT.$FILE_EXTENSION
+
+echo "Removing previous artifact with extension '.$FILE_EXTENSION'"
+find $WORK_FOLDER ! -name '$FILE_NAME' -regex ".*\.$FILE_EXTENSION" -exec rm -f {} +
 
 echo "Starting tomcat service"
 service $TOMCAT_SERVICE start
