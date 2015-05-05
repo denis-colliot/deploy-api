@@ -10,27 +10,9 @@ import org.apache.commons.lang3.StringUtils;
  */
 public enum DeployableType {
 
-    WAR("tomcat"),
-    EAR("tomcat"),
-    ZIP("apache");
-
-    /**
-     * Container key should match the environments properties in {@code application.properties} file.
-     */
-    private final String container;
-
-    private DeployableType(final String container) {
-        this.container = container;
-    }
-
-    /**
-     * Returns the container key that should match the environments properties in {@code application.properties} file.
-     *
-     * @return The container key.
-     */
-    public String getContainer() {
-        return container;
-    }
+    WAR,
+    EAR,
+    ZIP;
 
     /**
      * Returns if the given {@code type} is a <em>deployable</em> type.

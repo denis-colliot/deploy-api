@@ -39,7 +39,7 @@ echo "Creating work directories (if they don't exist)"
 mkdir -p $WORK_FOLDER
 
 echo "Downloading artifact '$FILE_NAME' into '$WORK_FOLDER'"
-wget --directory-prefix=WORK_FOLDER $ARTIFACT_URL
+wget --directory-prefix=$WORK_FOLDER $ARTIFACT_URL
 
 echo "Stopping Apache service."
 service $APACHE_SERVICE stop

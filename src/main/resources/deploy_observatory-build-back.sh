@@ -40,7 +40,7 @@ echo "Creating work directories (if they don't exist)"
 mkdir -p $LOGS_BACKUP_FOLDER
 
 echo "Downloading artifact '$FILE_NAME' into '$WORK_FOLDER'"
-wget --directory-prefix=WORK_FOLDER $ARTIFACT_URL
+wget --directory-prefix=$WORK_FOLDER $ARTIFACT_URL
 
 echo "Stopping tomcat service"
 service $TOMCAT_SERVICE stop
@@ -49,11 +49,11 @@ echo "Archiving tomcat logs"
 tar -zcf $LOGS_BACKUP_FOLDER/tomcat-logs-$(date +%Y-%m-%d_%H-%M-%S).tar.gz -C $TOMCAT_HOME/logs .
 rm -rf $TOMCAT_HOME/logs/*
 
-echo "Removing existing ROOT webapp (if any)"
-rm -rf $TOMCAT_HOME/webapps/ROOT*
+echo "Removing existing 'api' webapp (if any)"
+rm -rf $TOMCAT_HOME/webapps/api*
 
 echo "Creating symbolic link pointing to downloaded artifact"
-ln -s $WORK_FOLDER/$FILE_NAME $TOMCAT_HOME/webapps/ROOT.$FILE_EXTENSION
+ln -s $WORK_FOLDER/$FILE_NAME $TOMCAT_HOME/webapps/api.$FILE_EXTENSION
 
 echo "Removing previous artifact with extension '.$FILE_EXTENSION'"
 find $WORK_FOLDER ! -name '$FILE_NAME' -regex ".*\.$FILE_EXTENSION" -exec rm -f {} +

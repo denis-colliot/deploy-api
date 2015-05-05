@@ -32,9 +32,12 @@ $(document).ajaxStart(function() {
     target.appendChild(spinner.el);
     spinner.stopped = false;
 });
-$(document).ajaxStop(function() {
+$(document).ajaxComplete(function() {
     spinner.stop();
     spinner.stopped = true;
+});
+$(document).ajaxError(function(event, jqxhr, settings, thrownError) {
+    console.error('Ajax error: ' + thrownError);
 });
 
 
@@ -50,6 +53,8 @@ function getAllBuilds(callback) { $.get(url('builds'), callback); }
 
 function getBuildNumbers(build, callback) { $.get(url('builds' + build), callback); }
 
+function getEnvironments(callback) { $.get(url('environments'), callback); }
+
 
 /*
 ---------------------------------------------------------------
@@ -59,33 +64,50 @@ DOM BINDINGS.
 ---------------------------------------------------------------
 */
 
-getAllBuilds(function(data) {
-    $('#builds-wrapper .content').html(data);
+getAllBuilds(function(builds) {
+    $('#builds-wrapper tbody').append(builds);
+    $('select').hide();
  });
 
 $('body').on('change', '.build-cb', function(val) {
-    var selector = '#' + $(this).attr('id') + '-numbers';
 
-    $(selector).prop('disabled', !this.checked);
+    var numbersSelector = '#' + $(this).attr('id') + '-numbers';
+    var environmentsSelector = '#' + $(this).attr('id') + '-environments';
+    var allSelector = numbersSelector + ',' + environmentsSelector;
+
+    $(allSelector).prop('disabled', !this.checked);
+    $(allSelector).show();
 
     if (this.checked) {
-        // Build selection.
+
+        // Loading build  numbers.
         getBuildNumbers(this.value, function(buildNumbers) {
-            $(selector).append($('<option>', {
+            $(numbersSelector).append($('<option>', {
                 value: '',
                 text : 'Latest'
             }));
             $.each(buildNumbers, function (i, buildNumber) {
-                $(selector).append($('<option>', {
+                $(numbersSelector).append($('<option>', {
                     value: buildNumber.number,
                     text : buildNumber.number
                 }));
             });
         });
 
+        // Loading available environments.
+        getEnvironments(function(environments) {
+            $.each(environments, function (i, env) {
+                $(environmentsSelector).append($('<option>', {
+                    value: env,
+                    text : env
+                }));
+            });
+        });
+
     } else {
         // Build deselection.
-        $(selector).html('');
+        $(allSelector).html('');
+        $(allSelector).hide();
     }
 });
 

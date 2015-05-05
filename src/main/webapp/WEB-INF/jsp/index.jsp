@@ -7,6 +7,7 @@
 <html>
 <head>
     <title>Deploy API</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../../images/fav.ico">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="../../scripts/getScript.fix.js"></script>
@@ -32,19 +33,18 @@
     <div class="container">
 
         <!-- Builds. -->
-        <div id="builds-wrapper" class="block">
-            <div class="title">Builds to deploy</div>
-            <div class="content"></div>
+        <div class="block">
+            <table id="builds-wrapper">
+                <tr>
+                    <th class="title">Select build(s) to deploy</th>
+                    <th class="title">Build number</th>
+                    <th class="title">Environment</th>
+                </tr>
+            </table>
         </div>
 
-        <!-- Environments. -->
-        <div id="environments-wrapper" class="block">
-            <div class="title">Target environment</div>
-            <div class="content"></div>
-        </div>
-
-        <div style="display: flex; flex-direction: row; justify-content: flex-end;">
-            <button class="deploy-button" style="padding: 5px;">Deploy!</button>
+        <div style="display: flex; flex-direction: row; justify-content: flex-start;">
+            <button class="deploy-button" style="padding: 5px;">Deploy builds</button>
         </div>
 
     </div>

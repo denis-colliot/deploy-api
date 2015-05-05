@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.Paths;
+
 /**
  * {@link DeployService} implementation using SSH protocol to execute deploy script.
  *
@@ -69,11 +71,14 @@ public class DeployServiceImpl implements DeployService {
         final String host = environment.getProperty("env." + env + ".host");
         final String username = environment.getProperty("env." + env + ".username");
         final String password = environment.getProperty("env." + env + ".password");
-        final String script = environment.getProperty("env." + env + ".script." + artifact.getDeployableType().getContainer());
+        final String scriptsFolder = environment.getProperty("env." + env + ".scriptsFolder");
+        final String scriptName = environment.getProperty("env.script.name");
 
-        if (StringUtils.isAnyBlank(host, username, password, script)) {
+        if (StringUtils.isAnyBlank(host, username, password, scriptsFolder, scriptName)) {
             throw new UnsupportedOperationException("Environment '" + env + "' properties are missing or invalid.");
         }
+
+        final String script = Paths.get(scriptsFolder, scriptName.replace("{build}", build)).toString();
 
         LOGGER.debug("Target environment - host: '{}' ; username: '{}' ; script: '{}'.", host, username, script);
 
@@ -81,7 +86,7 @@ public class DeployServiceImpl implements DeployService {
         // Executing remote deployment script.
         // --
 
-        remoteCommandService.executeScript(host, username, password, script, artifact.getDownloadUri());
+        remoteCommandService.executeScript(host, username, password, script, number, artifact.getDownloadUri());
     }
 
 }

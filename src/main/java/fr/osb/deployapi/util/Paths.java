@@ -22,6 +22,18 @@ public final class Paths {
 
     public static final String ROOT = "/";
 
+    public static final String BUILDS = "/builds";
+
+    public static final String ENVIRONMENTS = "/environments";
+
+    public static final String REST = "/rest";
+
+    public static final String REST_BUILD_INFO = "/build-info";
+
+    public static final String REST_ARTIFACT_INFO = "/artifact-info";
+
+    public static final String REST_DEPLOY = "/deploy";
+
     private Paths() {
         // Utility class constructor.
     }

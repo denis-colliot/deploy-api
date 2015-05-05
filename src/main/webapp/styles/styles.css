@@ -16,6 +16,7 @@ body {
     padding: 40px;
     display: flex;
     justify-content: space-between;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
 }
 .ajax-loader {
     position: relative;
@@ -26,35 +27,34 @@ body {
 .container {
     padding: 20px;
 }
-
 .container .block {
     background-color: white;
     margin-bottom: 15px;
+    padding: 15px;
 }
 .container .block:last-child {
     margin-bottom: 0;
 }
 
-.block .title {
+
+#builds-wrapper .title {
     font-weight: bold;
-    font-size: 18px;
-    padding: 15px;
-    padding-bottom: 0;
+    font-size: 15px;
+    padding: 10px;
+    text-align: left;
 }
-.block .content {
-    padding: 15px;
+#builds-wrapper .build-data-wrapper {
+    padding: 8px 10px;
+    height: 22px;
+    vertical-align: middle;
+    text-align: left;
 }
-
-
-
-.build-row {
-    display: flex;
-    flex-direction: row;
-    padding: 5px 0;
+#builds-wrapper .build-data-wrapper {
+    min-width: 120px;
 }
-.build-wrapper {
-    min-width: 230px;
+#builds-wrapper .build-data-wrapper.build-wrapper {
+    width: 300px;
 }
-.buildNumber-wrapper select {
-    width: 80px;
+#builds-wrapper .build-data-wrapper select {
+    width: 100%;
 }
