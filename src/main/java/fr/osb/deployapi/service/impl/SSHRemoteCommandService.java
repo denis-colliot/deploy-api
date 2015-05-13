@@ -40,7 +40,7 @@ public class SSHRemoteCommandService implements RemoteCommandService {
 
         final String scriptArgs = asScriptArguments(arguments);
 
-        LOGGER.debug("Executing remote script '{}' on host '{}' with arguments '{}'.", remoteScript, host, scriptArgs);
+        LOGGER.info("Executing remote script '{}' on host '{}' with arguments '{}'.", remoteScript, host, scriptArgs);
 
         final JSch jsch = new JSch();
         Session session = null;
@@ -56,7 +56,7 @@ public class SSHRemoteCommandService implements RemoteCommandService {
 
             channel = session.openChannel("exec");
             channel.setInputStream(null);
-            channel.setOutputStream(System.out); // TODO find a way to redirect to logger.
+            channel.setOutputStream(System.out);
             ((ChannelExec) channel).setPty(true);
 
             // man sudo
@@ -64,7 +64,7 @@ public class SSHRemoteCommandService implements RemoteCommandService {
             // -p The -p (prompt) option allows you to override the default password prompt and use a custom one.
             final String command = "sudo -S -p '' " + remoteScript + scriptArgs;
             ((ChannelExec) channel).setCommand(command);
-            ((ChannelExec) channel).setErrStream(System.err); // TODO find a way to redirect to logger.
+            ((ChannelExec) channel).setErrStream(System.err);
 
             final OutputStream out = channel.getOutputStream();
 

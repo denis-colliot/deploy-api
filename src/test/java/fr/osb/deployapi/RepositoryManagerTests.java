@@ -1,6 +1,6 @@
 package fr.osb.deployapi;
 
-import fr.osb.deployapi.boot.Application;
+import fr.osb.deployapi.config.AppConfig;
 import fr.osb.deployapi.model.BuildsNumbers;
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.ArrayList;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringApplicationConfiguration(classes = AppConfig.class)
 public class RepositoryManagerTests {
 
     @Test

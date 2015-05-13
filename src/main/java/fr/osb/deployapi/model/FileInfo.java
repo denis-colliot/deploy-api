@@ -1,10 +1,8 @@
 package fr.osb.deployapi.model;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import fr.osb.deployapi.model.base.AbstractModel;
 import fr.osb.deployapi.model.base.ModelWithUri;
 import fr.osb.deployapi.util.DeployableType;
-import fr.osb.deployapi.util.JsonDateSerializer;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Date;
@@ -26,13 +24,10 @@ public class FileInfo extends ModelWithUri {
 
     private Long size;
 
-    @JsonSerialize(using = JsonDateSerializer.class)
     private Date created;
 
-    @JsonSerialize(using = JsonDateSerializer.class)
     private Date lastModified;
 
-    @JsonSerialize(using = JsonDateSerializer.class)
     private Date lastUpdated;
 
     private Checksums checksums;

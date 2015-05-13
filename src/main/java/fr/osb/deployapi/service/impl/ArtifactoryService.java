@@ -56,12 +56,12 @@ public class ArtifactoryService implements RepositoryManagerService {
     @Override
     public Builds getAllBuilds() {
 
-        LOGGER.debug("Retrieving all builds identifiers.");
+        LOGGER.info("Retrieving all builds identifiers.");
 
         final ResponseEntity<Builds> response = restTemplate.exchange(Paths.p(repositoryManagerApi, "build"),
                 HttpMethod.GET, HttpEntity.EMPTY, Builds.class);
 
-        LOGGER.debug("All builds: {}", response.getBody());
+        LOGGER.info("All builds: {}", response.getBody());
 
         return response.getBody();
     }
@@ -76,7 +76,7 @@ public class ArtifactoryService implements RepositoryManagerService {
             throw new IllegalArgumentException("Invalid build identifier.");
         }
 
-        LOGGER.debug("Retrieving build '{}' latest version available numbers.", build);
+        LOGGER.info("Retrieving build '{}' latest version available numbers.", build);
 
         final ResponseEntity<BuildsNumbers> response = restTemplate.exchange(Paths.p(repositoryManagerApi, "build", build),
                 HttpMethod.GET, HttpEntity.EMPTY, BuildsNumbers.class);
@@ -85,7 +85,7 @@ public class ArtifactoryService implements RepositoryManagerService {
 
         Collections.sort(buildsNumbers.getBuildsNumbers());
 
-        LOGGER.debug("Build '{}' available numbers: {}", build, buildsNumbers);
+        LOGGER.info("Build '{}' available numbers: {}", build, buildsNumbers);
 
         return buildsNumbers;
     }
@@ -100,7 +100,7 @@ public class ArtifactoryService implements RepositoryManagerService {
             throw new IllegalArgumentException("Invalid build identifier.");
         }
 
-        LOGGER.debug("Retrieving build '{}' #{} information.", build, number);
+        LOGGER.info("Retrieving build '{}' #{} information.", build, number);
 
         final HttpHeaders header = new HttpHeaders();
         header.add("Authorization", "Basic " + Base64.getEncoder().encodeToString(repositoryManagerAuth.getBytes()));
@@ -108,7 +108,7 @@ public class ArtifactoryService implements RepositoryManagerService {
         final ResponseEntity<BuildInfo> response = restTemplate.exchange(Paths.p(repositoryManagerApi, "build", build, number),
                 HttpMethod.GET, new HttpEntity<Object>(header), BuildInfo.class);
 
-        LOGGER.debug("Build '{}' #{} information: {}", build, number, response.getBody());
+        LOGGER.info("Build '{}' #{} information: {}", build, number, response.getBody());
 
         return response.getBody();
     }
@@ -119,7 +119,7 @@ public class ArtifactoryService implements RepositoryManagerService {
     @Override
     public FileInfo getBuildArtifact(final String build, final Integer number) {
 
-        LOGGER.debug("Retrieving build '{}' #{} deployable artifact information.", build, number);
+        LOGGER.info("Retrieving build '{}' #{} deployable artifact information.", build, number);
 
         // --
         // Retrieving build info.
@@ -161,14 +161,14 @@ public class ArtifactoryService implements RepositoryManagerService {
 
         final GavSearchResults searchResult = response.getBody();
 
-        LOGGER.trace("Build '{}' #{} GAV search results: {}", build, number, searchResult);
+        LOGGER.debug("Build '{}' #{} GAV search results: {}", build, number, searchResult);
 
         FileInfo artifact = null;
 
         for (final ModelWithUri hasUri : searchResult.getResults()) {
 
             if (!DeployableType.isType(hasUri.getUri(), deployableType)) {
-                LOGGER.trace("Artifact '{}' does not match deployable type '{}'.", hasUri, deployableType);
+                LOGGER.debug("Artifact '{}' does not match deployable type '{}'.", hasUri, deployableType);
                 continue;
             }
 
@@ -180,7 +180,7 @@ public class ArtifactoryService implements RepositoryManagerService {
             }
         }
 
-        LOGGER.debug("Build '{}' #{} deployable artifact information: {}", build, number, artifact);
+        LOGGER.info("Build '{}' #{} deployable artifact information: {}", build, number, artifact);
 
         return artifact;
     }

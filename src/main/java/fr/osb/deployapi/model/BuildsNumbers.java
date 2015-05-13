@@ -17,6 +17,11 @@ import java.util.List;
  */
 public class BuildsNumbers extends ModelWithUri {
 
+    /**
+     * Logger.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(BuildsNumbers.class);
+
     private List<BuildNumber> buildsNumbers;
 
     /**
@@ -54,11 +59,6 @@ public class BuildsNumbers extends ModelWithUri {
      * Build number.
      */
     public static class BuildNumber extends ModelWithUri implements Comparable<BuildNumber> {
-
-        /**
-         * Logger.
-         */
-        private static final Logger LOGGER = LoggerFactory.getLogger(BuildNumber.class);
 
 
         private Integer number;

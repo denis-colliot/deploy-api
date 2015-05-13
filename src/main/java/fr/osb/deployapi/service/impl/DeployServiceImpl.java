@@ -24,7 +24,7 @@ public class DeployServiceImpl implements DeployService {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(DeployServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DeployService.class);
 
     /**
      * Environment properties.
@@ -50,7 +50,7 @@ public class DeployServiceImpl implements DeployService {
     @Override
     public void deploy(final String env, final String build, final Integer number) {
 
-        LOGGER.debug("Deploying build '{}' #{} on environment '{}'.", build, number, env);
+        LOGGER.info("Deploying build '{}' #{} on environment '{}'.", build, number, env);
 
         // --
         // Retrieving deployable artifact.
@@ -62,7 +62,7 @@ public class DeployServiceImpl implements DeployService {
             throw new UnsupportedOperationException("No deployable artifact found for build '" + build + "' #" + number);
         }
 
-        LOGGER.debug("Artifact to deploy: {}", artifact);
+        LOGGER.info("Artifact to deploy: {}", artifact);
 
         // --
         // Retrieving environment properties.
@@ -80,7 +80,7 @@ public class DeployServiceImpl implements DeployService {
 
         final String script = Paths.get(scriptsFolder, scriptName.replace("{build}", build)).toString();
 
-        LOGGER.debug("Target environment - host: '{}' ; username: '{}' ; script: '{}'.", host, username, script);
+        LOGGER.info("Target environment - host: '{}' ; username: '{}' ; script: '{}'.", host, username, script);
 
         // --
         // Executing remote deployment script.
