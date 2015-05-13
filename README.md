@@ -6,28 +6,31 @@
 * Maven 3
 
 
-## REST API
-| Path                               | Method | Description |
-|:-----------------------------------|:-------|:------------|
-| `/build-info/{build}/{number}`     | GET    | Retrieves the information on a specific build.             |
-| `/artifact-info/{build}/{number}`  | GET    | Retrieves the information on a specific build artifact.    |
-| `/deploy/{env}/{build}`            | PUT    | Deploys the latest build version on the given environment. |
-| `/deploy/{env}/{build}/{number}`   | PUT    | Deploys the specific build number on the given environment |
+## How does it work?
+This deployment API is served as an executable JAR (Java ARchive).
+
+It should be executed in command line to deploy a build on a specific environment, like this:
+```
+java -jar deploy-api-0.0.1.jar {env} {build} [{number}]
+```
+
+In continuous integration (CI), this API should be called by Jenkins during a specific deploy job (there should be one job per environment).
 
 
-## Run the application
-Execute the following command on your project home directory:
+For now, the program expects the following arguments:
+* `{env}` *(required)*: Target environment on which the build is deployed.
+* `{build}` *(required)*: Existing build name.
+* `{number}` *(optional)*: Existing build number. If not provided, the latest build is deployed.
+
+
+## Test the program locally
+To execute the deploy API locally in order to test it, simply execute the following command on your project home directory:
 ```
 mvn spring-boot:run
 ```
+Note that this *local run* is provided with with default arguments set in the `pom.xml` (see `build` section).
 
-Access the web interface with by opening the following URL in your browser:
+You can override them in command line:
 ```
-http://localhost:8080
-```
-
-Or use REST API methods with following example command lines:
-```
-curl -X GET localhost:8080/rest/artifact-info/observatory-build-front/154
-curl -X PUT localhost:8080/rest/deploy/integration/observatory-build-front/154
+mvn spring-boot:run -Drun.arguments="arg1,arg2"
 ```

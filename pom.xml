@@ -130,9 +130,9 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <arguments>
-                        <!-- Command line: "mvn spring-boot:run -Drun.arguments="arg1,arg2"" -->
-                        <argument>hello</argument>
-                        <argument>world!</argument>
+                        <!-- Command line: mvn spring-boot:run -Drun.arguments="arg1,arg2" -->
+                        <argument>int</argument>
+                        <argument>observatory-build-back</argument>
                     </arguments>
                 </configuration>
             </plugin>
