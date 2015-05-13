@@ -1,0 +1,29 @@
+# ----------------------------------------------------------------------
+# Repository manager.
+# ----------------------------------------------------------------------
+
+repositoryManager:
+    api: http://artifactory.isiodata.fr/artifactory/api
+    auth: jenkins:jenkins
+
+
+# ----------------------------------------------------------------------
+# Environments.
+# ----------------------------------------------------------------------
+
+env:
+    available: integration, demo
+    script:
+        name: deploy_{build}.sh
+
+    integration:
+        host: 192.168.51.9
+        username: admin
+        password: "******"
+        scriptsFolder: /home/admin/deploy-scripts
+
+    demo:
+        host: 192.168.51.15
+        username: admin
+        password: "******"
+        scriptsFolder: /home/admin/deploy-scripts

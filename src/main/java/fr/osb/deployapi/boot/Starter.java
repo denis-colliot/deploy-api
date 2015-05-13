@@ -58,11 +58,9 @@ public final class Starter implements CommandLineRunner {
         LOGGER.info("Program arguments: {}", ArrayUtils.toString(args));
 
         if (ArrayUtils.isEmpty(args)) {
-            throw new IllegalArgumentException("No parameters.");
+            throw new IllegalArgumentException("No arguments.");
         }
 
         // TODO call deploy service with program arguments.
-
-        LOGGER.debug("deployService: {}", deployService);
     }
 }
