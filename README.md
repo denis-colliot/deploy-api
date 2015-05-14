@@ -23,34 +23,56 @@ The program expects the following arguments:
 
 
 ## Environments properties
-The program relies on a configuration file named `application.yml`.
+The program relies on a configuration file named `application.yml`. This file contains environments and repository manager API properties.  
+It is a [YAML](http://yaml.org/) document.
 
-### Embedded test configuration
-A default file is provided within the application resources (see `src/main/resources`) in order to proceed tests. 
+### Test (embedded) configuration
+A default file is provided within the application resources (see `src/main/resources`) in order to run development tests.  
+**This file should never be commited with actual operational password!**
 
-**This should never contain operational password!**
-
-### Production configuration
-In production, this embedded file can be overridden. To do so, simply put an `application.yml` file next to the JAR archive.
-
-This file will be loaded from the execution classpath, so be careful to run your JAR from **current** directory:
+### Production (external) configuration
+In production, the default embedded file can be overridden. To do so, simply put an `application.yml` file next to the JAR archive:
 ```
-# WRONG:
-java -jar folder/deploy-api.jar env build
-
-# CORRECT:
-cd folder
-java -jar deploy-api.jar env build 
+/production/folder
+    deploy-api-0.0.1.jar
+    application.yml
 ```
 
+It allows operational teams to provide the sensitive passwords in a secure way.  
+Note that they are other ways to provided theses properties, 
+read documentation about [spring-boot's external configuration] (http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html)
+for more information.
 
-## Test the program locally
-To execute the deploy API locally in order to test it, simply execute the following command on your project home directory:
+### Warning: execution classpath
+This file will be loaded from the *execution* classpath, so be careful from where you run your JAR.
+
+Suppose you have the following tree structure:
+```
+/folder
+    deploy-api.jar
+    application.yml
+```
+
+The following command line **won't** load the configuration file (KO):
+```
+# Execution classpath is '/'
+java -jar /folder/deploy-api.jar env build
+```
+
+The following command line **will** load the configuration file (OK):
+```
+# Execution classpath is '/folder/'
+cd /folder
+java -jar deploy-api.jar env build
+```
+
+
+## Run the program without packaging
+To execute the deploy API without packaging the JAR archive (e.g. from IDE), simply execute the following command on your project home directory:
 ```
 mvn spring-boot:run
 ```
-Note that this *local run* is provided with with default arguments set in the `pom.xml` (see `build` section).
-
+Note that this *on-the-fly* run is provided with with default arguments set in the `pom.xml` (see `build` section).  
 You can override them in command line:
 ```
 mvn spring-boot:run -Drun.arguments="arg1,arg2"
