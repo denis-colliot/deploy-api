@@ -1,7 +1,10 @@
 # Deployment API
 
-API used to deploy a given build number on a specific environment.  
-The application is built with `spring-boot`.
+## Introduction
+
+This API is used to deploy a given artifact build on a given environment.
+
+On the architecture level, the application is built with `spring-boot` and served as an executable JAR (Java ARchive).
 
 ## Prerequisites
 * Java 8
@@ -9,8 +12,6 @@ The application is built with `spring-boot`.
 
 
 ## How does it work?
-This deployment API is served as an executable JAR (Java ARchive).
-
 It should be executed in command line to deploy a build on a specific environment, like this:
 ```
 java -jar deploy-api-0.0.1.jar {env} {build} [{number}]
