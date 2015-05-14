@@ -54,13 +54,13 @@ Suppose you have the following tree structure:
 ```
 
 The following command line **won't** load the configuration file (KO):
-```
+```bash
 # Execution classpath is '/'
 java -jar /folder/deploy-api.jar env build
 ```
 
 The following command line **will** load the configuration file (OK):
-```
+```bash
 # Execution classpath is '/folder/'
 cd /folder
 java -jar deploy-api.jar env build
