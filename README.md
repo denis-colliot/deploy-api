@@ -1,6 +1,5 @@
 # Deployment API
 
-
 ## Prerequisites
 * Java 8
 * Maven 3
@@ -10,7 +9,7 @@
 This deployment API is served as an executable JAR (Java ARchive).
 
 It should be executed in command line to deploy a build on a specific environment, like this:
-```shell
+```
 java -jar deploy-api-0.0.1.jar {env} {build} [{number}]
 ```
 
@@ -34,10 +33,10 @@ A default file is provided within the application resources (see `src/main/resou
 ### Production configuration
 In production, this embedded file can be overridden. To do so, simply put an `application.yml` file next to the JAR archive.
 
-This file will be loaded from the execution classpath, so be careful to run your JAR from current directory:
-```shell
+This file will be loaded from the execution classpath, so be careful to run your JAR from **current** directory:
+```
 # WRONG:
-~~java -jar folder/deploy-api.jar env build~~
+java -jar folder/deploy-api.jar env build
 
 # CORRECT:
 cd folder
@@ -47,13 +46,13 @@ java -jar deploy-api.jar env build
 
 ## Test the program locally
 To execute the deploy API locally in order to test it, simply execute the following command on your project home directory:
-```shell
+```
 mvn spring-boot:run
 ```
 Note that this *local run* is provided with with default arguments set in the `pom.xml` (see `build` section).
 
 You can override them in command line:
-```shell
+```
 mvn spring-boot:run -Drun.arguments="arg1,arg2"
 ```
 
