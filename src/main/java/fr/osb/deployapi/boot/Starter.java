@@ -60,7 +60,18 @@ public final class Starter implements CommandLineRunner {
         if (ArrayUtils.isEmpty(args)) {
             throw new IllegalArgumentException("No arguments.");
         }
+        if (args.length < 2) {
+            throw new IllegalArgumentException("Missing arguments. At least {env} and {build} arguments are expected.");
+        }
 
-        // TODO call deploy service with program arguments.
+        final String env = args[0];
+        final String build = args[1];
+
+        if (args.length > 2) {
+            deployService.deploy(env, build, Integer.parseInt(args[2]));
+
+        } else {
+            deployService.deploy(env, build);
+        }
     }
 }

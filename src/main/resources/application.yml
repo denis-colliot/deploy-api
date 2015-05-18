@@ -1,10 +1,20 @@
 # ----------------------------------------------------------------------
+# Logging.
+# ----------------------------------------------------------------------
+
+logging:
+    level.: WARN
+    level.org.springframework: INFO
+    level.fr.osb.deployapi: INFO
+
+
+# ----------------------------------------------------------------------
 # Repository manager.
 # ----------------------------------------------------------------------
 
 repositoryManager:
     api: http://artifactory.isiodata.fr/artifactory/api
-    auth: jenkins:jenkins
+    auth: "jenkins:jenkins"
 
 
 # ----------------------------------------------------------------------
@@ -12,9 +22,8 @@ repositoryManager:
 # ----------------------------------------------------------------------
 
 env:
-    available: integration, demo
-    script:
-        name: deploy_{build}.sh
+    # Remote deploy scripts file name format. The '{build}' part is dynamically replaced.
+    scriptsFormat: deploy_{build}.sh
 
     integration:
         host: 192.168.51.9

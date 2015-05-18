@@ -1,41 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration scan="true" scanPeriod="60 seconds">
+<configuration>
 
-	<!-- Note: This file is automatically reloaded every 60 seconds. -->
-
-	<!--
-	===========================================================================================
-	PROPERTIES.
-	===========================================================================================
-	-->
-
-	<property name="PATTERN"
-		value="[%-5level] {%d{dd/MM/yyyy HH:mm:ss.SSS}} [%thread] %logger{35} - %msg%n" />
-
-	<!--
-	===========================================================================================
-	APPENDERS.
-	===========================================================================================
-	-->
-	
-	<!-- Stdout appender. -->
-	<appender name="CONSOLE_APPENDER" class="ch.qos.logback.core.ConsoleAppender">
-		<encoder>
-			<pattern>${PATTERN}</pattern>
-		</encoder>
-	</appender>
-
-	<!--
-	===========================================================================================
-	LOGGERS (must be placed AFTER appenders definition).
-	===========================================================================================
-	-->
-
-	<root level="WARN">
-		<appender-ref ref="CONSOLE_APPENDER" />
-	</root>
-
-	<logger name="org.springframework" level="INFO" />
-	<logger name="fr.osb.deployapi" level="DEBUG" />
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
 </configuration>

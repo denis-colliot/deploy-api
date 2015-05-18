@@ -133,6 +133,7 @@
                         <!-- Command line: mvn spring-boot:run -Drun.arguments="arg1,arg2" -->
                         <argument>int</argument>
                         <argument>observatory-build-back</argument>
+                        <argument>invalidNumber</argument>
                     </arguments>
                 </configuration>
             </plugin>

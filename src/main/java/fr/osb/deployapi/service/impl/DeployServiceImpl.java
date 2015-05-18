@@ -1,5 +1,6 @@
 package fr.osb.deployapi.service.impl;
 
+import fr.osb.deployapi.model.BuildsNumbers;
 import fr.osb.deployapi.model.FileInfo;
 import fr.osb.deployapi.service.DeployService;
 import fr.osb.deployapi.service.RemoteCommandService;
@@ -48,6 +49,21 @@ public class DeployServiceImpl implements DeployService {
      * {@inheritDoc}
      */
     @Override
+    public void deploy(final String env, final String build) {
+
+        LOGGER.info("Deploying build '{}' latest number on environment '{}'.", build, env);
+
+        final BuildsNumbers.BuildNumber latest = repositoryManagerService.getBuildNumbers(build).getLatest();
+
+        LOGGER.debug("Latest build '{}': {}.", build, latest);
+
+        deploy(env, build, latest.getNumber());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void deploy(final String env, final String build, final Integer number) {
 
         LOGGER.info("Deploying build '{}' #{} on environment '{}'.", build, number, env);
@@ -72,13 +88,13 @@ public class DeployServiceImpl implements DeployService {
         final String username = environment.getProperty("env." + env + ".username");
         final String password = environment.getProperty("env." + env + ".password");
         final String scriptsFolder = environment.getProperty("env." + env + ".scriptsFolder");
-        final String scriptName = environment.getProperty("env.script.name");
+        final String scriptsFormat = environment.getProperty("env.scriptsFormat");
 
-        if (StringUtils.isAnyBlank(host, username, password, scriptsFolder, scriptName)) {
+        if (StringUtils.isAnyBlank(host, username, password, scriptsFolder, scriptsFormat)) {
             throw new UnsupportedOperationException("Environment '" + env + "' properties are missing or invalid.");
         }
 
-        final String script = Paths.get(scriptsFolder, scriptName.replace("{build}", build)).toString();
+        final String script = Paths.get(scriptsFolder, scriptsFormat.replace("{build}", build)).toString();
 
         LOGGER.info("Target environment - host: '{}' ; username: '{}' ; script: '{}'.", host, username, script);
 

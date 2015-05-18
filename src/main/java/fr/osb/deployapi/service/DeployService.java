@@ -8,6 +8,16 @@ package fr.osb.deployapi.service;
 public interface DeployService {
 
     /**
+     * Deploys the given {@code build} corresponding <b>last number</b> artifact on given {@code env} infrastructure.
+     *
+     * @param env
+     *         The environment key. Corresponding properties must be declared.
+     * @param build
+     *         The build name.
+     */
+    void deploy(String env, String build);
+
+    /**
      * Deploys the given {@code build} / {@code number} corresponding artifact on given {@code env} infrastructure.
      *
      * @param env

@@ -70,6 +70,7 @@ public class SSHRemoteCommandService implements RemoteCommandService {
 
             channel.connect();
 
+            // FIXME Password appears clearly in console logs (security breach).
             out.write((password + System.getProperty("line.separator")).getBytes());
             out.flush();
 
