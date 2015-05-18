@@ -14,7 +14,7 @@ On the architecture level, the application is built with `spring-boot` and serve
 ## How does it work?
 It should be executed in command line to deploy a build on a specific environment, like this:
 ```
-java -jar deploy-api-0.0.1.jar {env} {build} [{number}]
+java -jar deploy-api.jar {env} {build} [{number}]
 ```
 
 This API should be called by the continuous integration (CI) server during specific *deploy* jobs (there should be one job per environment).
@@ -38,7 +38,7 @@ A default file is provided within the application resources (see `src/main/resou
 In production, the default embedded file can be overridden. To do so, simply put an `application.yml` file next to the JAR archive:
 ```
 /production/folder
-    deploy-api-0.0.1.jar
+    deploy-api.jar
     application.yml
 ```
 
