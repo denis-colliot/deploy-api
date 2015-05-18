@@ -50,7 +50,7 @@ for more information.
 ### Warning: execution classpath
 This file will be loaded from the *execution* classpath, so be careful from where you run your JAR.
 
-Suppose you have the following tree structure:
+Suppose you have the following tree structure **and** you are in `/` directory:
 ```
 /folder
     deploy-api.jar
