@@ -84,6 +84,11 @@ public class SSHRemoteCommandService implements RemoteCommandService {
                 Thread.sleep(200);
             }
 
+            final int exitStatus = channel.getExitStatus();
+            if (exitStatus != 0) {
+                throw new UnsupportedOperationException("Remote script exit with code " + exitStatus + ".");
+            }
+
         } catch (final Exception e) {
             throw new RemoteCommandException("Remote script '" + remoteScript + "' execution on host '" + host + "' failed.", e);
 
