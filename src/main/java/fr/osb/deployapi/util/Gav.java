@@ -29,6 +29,16 @@ public final class Gav {
         version = split[2];
     }
 
+    /**
+     * Returns the GAV bean as a map containing following data:
+     * <ul>
+     * <li>{@code g} - group value</li>
+     * <li>{@code a} - artifact value</li>
+     * <li>{@code v} - version value</li>
+     * </ul>
+     *
+     * @return
+     */
     public Map<String, String> asUrlVariables() {
         final Map<String, String> urlVariables = new HashMap<>();
         urlVariables.put("g", group);

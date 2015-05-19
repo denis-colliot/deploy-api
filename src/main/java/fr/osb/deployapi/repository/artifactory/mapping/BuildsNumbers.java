@@ -1,6 +1,5 @@
-package fr.osb.deployapi.model;
+package fr.osb.deployapi.repository.artifactory.mapping;
 
-import fr.osb.deployapi.model.base.ModelWithUri;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -59,7 +58,6 @@ public class BuildsNumbers extends ModelWithUri {
      * Build number.
      */
     public static class BuildNumber extends ModelWithUri implements Comparable<BuildNumber> {
-
 
         private Integer number;
 

@@ -5,14 +5,14 @@
 logging:
     level.: WARN
     level.org.springframework: INFO
-    level.fr.osb.deployapi: INFO
+    level.fr.osb.deployapi: DEBUG
 
 
 # ----------------------------------------------------------------------
-# Repository manager.
+# Repository manager (artifactory, nexus, etc.).
 # ----------------------------------------------------------------------
 
-repositoryManager:
+artifactory:
     api: http://artifactory.isiodata.fr/artifactory/api
     auth: "jenkins:jenkins"
 

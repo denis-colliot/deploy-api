@@ -1,7 +1,7 @@
 package fr.osb.deployapi;
 
 import fr.osb.deployapi.config.AppConfig;
-import fr.osb.deployapi.model.BuildsNumbers;
+import fr.osb.deployapi.repository.artifactory.mapping.BuildsNumbers;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

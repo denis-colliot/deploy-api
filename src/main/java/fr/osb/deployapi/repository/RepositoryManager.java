@@ -1,23 +1,21 @@
-package fr.osb.deployapi.service;
+package fr.osb.deployapi.repository;
 
-import fr.osb.deployapi.model.BuildInfo;
-import fr.osb.deployapi.model.Builds;
-import fr.osb.deployapi.model.BuildsNumbers;
-import fr.osb.deployapi.model.FileInfo;
+import java.util.List;
 
 /**
+ * Repository manager (artifactory, nexus, etc.). Provides access to repository builds and artifacts.<br>
  * Created on 29/04/15.
  *
  * @author Denis Colliot (denis.colliot@zenika.com)
  */
-public interface RepositoryManagerService {
+public interface RepositoryManager {
 
     /**
      * Retrieves all the builds managed by the repository manager.
      *
      * @return All the builds managed by the repository manager.
      */
-    Builds getAllBuilds();
+    List<String> getAllBuilds();
 
     /**
      * Retrieves the given {@code build} builds numbers sorted by descendant number.
@@ -26,7 +24,7 @@ public interface RepositoryManagerService {
      *         The build name.
      * @return The given {@code build} builds numbers.
      */
-    BuildsNumbers getBuildNumbers(String build);
+    List<Integer> getBuildNumbers(String build);
 
     /**
      * Retrieves the given {@code build} information.
@@ -37,7 +35,7 @@ public interface RepositoryManagerService {
      *         The build number.
      * @return The given {@code build} information.
      */
-    BuildInfo getBuildInfo(String build, Integer number);
+    IsBuildInfo getBuildInfo(String build, Integer number);
 
     /**
      * Retrieves the given build identifier <b>deployable</b> artifact info (including download URI).<br>
@@ -49,6 +47,6 @@ public interface RepositoryManagerService {
      *         The build number.
      * @return The given build identifier <b>deployable</b> artifact info (including download URI).
      */
-    FileInfo getBuildArtifact(String build, Integer number);
+    IsArtifactInfo getBuildArtifact(String build, Integer number);
 
 }

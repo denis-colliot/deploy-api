@@ -1,4 +1,4 @@
-package fr.osb.deployapi.model.base;
+package fr.osb.deployapi.repository.artifactory.mapping;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -7,7 +7,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  *
  * @author Denis Colliot (denis.colliot@zenika.com)
  */
-public abstract class AbstractModel {
+abstract class AbstractModel {
 
     /**
      * {@inheritDoc}

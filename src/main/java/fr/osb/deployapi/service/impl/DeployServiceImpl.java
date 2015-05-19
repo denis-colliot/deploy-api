@@ -1,10 +1,10 @@
 package fr.osb.deployapi.service.impl;
 
-import fr.osb.deployapi.model.BuildsNumbers;
-import fr.osb.deployapi.model.FileInfo;
+import fr.osb.deployapi.repository.IsArtifactInfo;
+import fr.osb.deployapi.repository.RepositoryManager;
 import fr.osb.deployapi.service.DeployService;
 import fr.osb.deployapi.service.RemoteCommandService;
-import fr.osb.deployapi.service.RepositoryManagerService;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +13,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Paths;
+import java.util.List;
 
 /**
  * {@link DeployService} implementation using SSH protocol to execute deploy script.
@@ -37,7 +38,7 @@ public class DeployServiceImpl implements DeployService {
      * Injected service.
      */
     @Autowired
-    private RepositoryManagerService repositoryManagerService;
+    private RepositoryManager repositoryManager;
 
     /**
      * Injected service.
@@ -53,11 +54,16 @@ public class DeployServiceImpl implements DeployService {
 
         LOGGER.info("Deploying build '{}' latest number on environment '{}'.", build, env);
 
-        final BuildsNumbers.BuildNumber latest = repositoryManagerService.getBuildNumbers(build).getLatest();
+        final List<Integer> buildNumbers = repositoryManager.getBuildNumbers(build);
+        if (CollectionUtils.isEmpty(buildNumbers)) {
+            throw new UnsupportedOperationException("No build number found for build '" + build + "'.");
+        }
+
+        final Integer latest = buildNumbers.get(0);
 
         LOGGER.debug("Latest build '{}': {}.", build, latest);
 
-        deploy(env, build, latest.getNumber());
+        deploy(env, build, latest);
     }
 
     /**
@@ -72,7 +78,7 @@ public class DeployServiceImpl implements DeployService {
         // Retrieving deployable artifact.
         // --
 
-        final FileInfo artifact = repositoryManagerService.getBuildArtifact(build, number);
+        final IsArtifactInfo artifact = repositoryManager.getBuildArtifact(build, number);
 
         if (artifact == null) {
             throw new UnsupportedOperationException("No deployable artifact found for build '" + build + "' #" + number);
@@ -89,6 +95,12 @@ public class DeployServiceImpl implements DeployService {
         final String password = environment.getProperty("env." + env + ".password");
         final String scriptsFolder = environment.getProperty("env." + env + ".scriptsFolder");
         final String scriptsFormat = environment.getProperty("env.scriptsFormat");
+
+        LOGGER.debug("Scripts Format: '{}'", scriptsFormat);
+        LOGGER.debug("Host[{}]: '{}'", env, host);
+        LOGGER.debug("Username[{}]: '{}'", env, username);
+        LOGGER.debug("Password[{}]: '{}'", env, password);
+        LOGGER.debug("Scripts Folder[{}]: '{}'", env, scriptsFolder);
 
         if (StringUtils.isAnyBlank(host, username, password, scriptsFolder, scriptsFormat)) {
             throw new UnsupportedOperationException("Environment '" + env + "' properties are missing or invalid.");

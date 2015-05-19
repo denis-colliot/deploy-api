@@ -1,7 +1,5 @@
-package fr.osb.deployapi.model;
+package fr.osb.deployapi.repository.artifactory.mapping;
 
-import fr.osb.deployapi.model.base.AbstractModel;
-import fr.osb.deployapi.model.base.ModelWithUri;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.List;

@@ -1,7 +1,6 @@
-package fr.osb.deployapi.model;
+package fr.osb.deployapi.repository.artifactory.mapping;
 
-import fr.osb.deployapi.model.base.AbstractModel;
-import fr.osb.deployapi.model.base.ModelWithUri;
+import fr.osb.deployapi.repository.IsBuildInfo;
 import fr.osb.deployapi.util.Gav;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -13,7 +12,7 @@ import java.util.Map;
  *
  * @author Denis Colliot (denis.colliot@zenika.com)
  */
-public class BuildInfo extends ModelWithUri {
+public class BuildInfo extends ModelWithUri implements IsBuildInfo {
 
     private BuildInfoData buildInfo;
 
@@ -23,6 +22,22 @@ public class BuildInfo extends ModelWithUri {
     @Override
     protected void appendToString(final ToStringBuilder builder) {
         builder.append("buildInfo", buildInfo);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getName() {
+        return buildInfo != null ? buildInfo.getName() : null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Integer getNumber() {
+        return buildInfo != null ? buildInfo.getNumber() : null;
     }
 
     public BuildInfoData getBuildInfo() {
@@ -38,6 +53,8 @@ public class BuildInfo extends ModelWithUri {
      */
     public static class BuildInfoData extends AbstractModel {
 
+        private String name;
+
         private String type;
 
         private Integer number;
@@ -51,10 +68,19 @@ public class BuildInfo extends ModelWithUri {
          */
         @Override
         protected void appendToString(final ToStringBuilder builder) {
-            builder.append("type", type);
+            builder.append("name", name);
             builder.append("number", number);
+            builder.append("type", type);
             builder.append("vcsRevision", vcsRevision);
             builder.append("modules", modules);
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
         }
 
         public String getType() {

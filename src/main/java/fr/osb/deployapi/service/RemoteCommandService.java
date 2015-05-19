@@ -10,12 +10,17 @@ import fr.osb.deployapi.service.exception.RemoteCommandException;
 public interface RemoteCommandService {
 
     /**
+     * <p>
      * Executes remotely the given {@code command} on the given {@code env}.
+     * </p>
+     * <p>
+     * The command is executed with <b>sudo</b>, therefore the provided {@code username} has to be a <b>sudoer</b>.
+     * </p>
      *
      * @param host
      *         The remote server host.
      * @param username
-     *         The remote server username. <b>The user has to be a sudoer</b>.
+     *         The remote server username (has to be a <b>sudoer</b>).
      * @param password
      *         The remote server password.
      * @param remoteScript

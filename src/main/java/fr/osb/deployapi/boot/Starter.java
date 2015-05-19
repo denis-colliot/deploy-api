@@ -40,7 +40,14 @@ public final class Starter implements CommandLineRunner {
      *         If an error occurs while running the app.
      */
     public static void main(final String[] args) {
-        SpringApplication.run(Starter.class, args);
+        try {
+
+            SpringApplication.run(Starter.class, args);
+
+        } catch (Exception e) {
+            LOGGER.error("Program exception", e);
+            System.exit(1);
+        }
     }
 
     /**

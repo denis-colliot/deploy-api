@@ -1,7 +1,6 @@
-package fr.osb.deployapi.model;
+package fr.osb.deployapi.repository.artifactory.mapping;
 
-import fr.osb.deployapi.model.base.AbstractModel;
-import fr.osb.deployapi.model.base.ModelWithUri;
+import fr.osb.deployapi.repository.IsArtifactInfo;
 import fr.osb.deployapi.util.DeployableType;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -12,7 +11,7 @@ import java.util.Date;
  *
  * @author Denis Colliot (denis.colliot@zenika.com)
  */
-public class FileInfo extends ModelWithUri {
+public class FileInfo extends ModelWithUri implements IsArtifactInfo {
 
     private String repo;
 
@@ -55,6 +54,7 @@ public class FileInfo extends ModelWithUri {
         this.repo = repo;
     }
 
+    @Override
     public String getDownloadUri() {
         return downloadUri;
     }
