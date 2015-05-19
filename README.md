@@ -45,7 +45,7 @@ In production, the default embedded file can be overridden. To do so, simply put
 It allows operational teams to provide the sensitive passwords in a secure way.  
 Note that they are other ways to provided theses properties, 
 read documentation about [spring-boot's external configuration] (http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html)
-for more information.
+for more information. In production, the configuration file name can be provided through argument or environment variable.
 
 ### Warning: execution classpath
 This file will be loaded from the *execution* classpath, so be careful from where you run your JAR.
@@ -81,8 +81,3 @@ You can override them in command line:
 ```
 mvn spring-boot:run -Drun.arguments="arg1,arg2"
 ```
-
-
-## TODO
-- Complete deploy execution implementation.
-- Rename `application.yml` to `deploy-api-conf.yml`.
