@@ -2,8 +2,8 @@ package fr.osb.deployapi.repository.artifactory.mapping;
 
 import fr.osb.deployapi.repository.IsBuildInfo;
 import fr.osb.deployapi.util.Gav;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -15,14 +15,6 @@ import java.util.Map;
 public class BuildInfo extends ModelWithUri implements IsBuildInfo {
 
     private BuildInfoData buildInfo;
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void appendToString(final ToStringBuilder builder) {
-        builder.append("buildInfo", buildInfo);
-    }
 
     /**
      * {@inheritDoc}
@@ -61,19 +53,9 @@ public class BuildInfo extends ModelWithUri implements IsBuildInfo {
 
         private String vcsRevision;
 
-        private List<Module> modules;
+        private Date started;
 
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        protected void appendToString(final ToStringBuilder builder) {
-            builder.append("name", name);
-            builder.append("number", number);
-            builder.append("type", type);
-            builder.append("vcsRevision", vcsRevision);
-            builder.append("modules", modules);
-        }
+        private List<Module> modules;
 
         public String getName() {
             return name;
@@ -107,6 +89,14 @@ public class BuildInfo extends ModelWithUri implements IsBuildInfo {
             this.vcsRevision = vcsRevision;
         }
 
+        public Date getStarted() {
+            return started;
+        }
+
+        public void setStarted(Date started) {
+            this.started = started;
+        }
+
         public List<Module> getModules() {
             return modules;
         }
@@ -129,17 +119,6 @@ public class BuildInfo extends ModelWithUri implements IsBuildInfo {
         private Map<String, String> properties;
 
         private List<Artifact> artifacts;
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        protected void appendToString(final ToStringBuilder builder) {
-            builder.append("id", id);
-            builder.append("gav", gav);
-            builder.append("artifacts", artifacts);
-            builder.append("properties", properties);
-        }
 
         public String getId() {
             return id;
@@ -187,17 +166,6 @@ public class BuildInfo extends ModelWithUri implements IsBuildInfo {
         private String md5;
 
         private String name;
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        protected void appendToString(final ToStringBuilder builder) {
-            builder.append("type", type);
-            builder.append("sha1", sha1);
-            builder.append("md5", md5);
-            builder.append("name", name);
-        }
 
         public String getType() {
             return type;

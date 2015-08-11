@@ -1,25 +1,15 @@
 package fr.osb.deployapi.repository.artifactory.mapping;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-
 import java.util.List;
 
 /**
- * Created on 29/04/15.
+ * Search results model.
  *
  * @author Denis Colliot (denis.colliot@zenika.com)
  */
-public class GavSearchResults extends AbstractModel {
+public class SearchResults extends AbstractModel {
 
     private List<ModelWithUri> results;
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void appendToString(final ToStringBuilder builder) {
-        builder.append("results", results);
-    }
 
     public List<ModelWithUri> getResults() {
         return results;

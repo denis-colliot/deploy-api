@@ -2,7 +2,6 @@ package fr.osb.deployapi.repository.artifactory.mapping;
 
 import fr.osb.deployapi.repository.IsArtifactInfo;
 import fr.osb.deployapi.util.DeployableType;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Date;
 
@@ -30,21 +29,6 @@ public class FileInfo extends ModelWithUri implements IsArtifactInfo {
     private Date lastUpdated;
 
     private Checksums checksums;
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void appendToString(final ToStringBuilder builder) {
-        builder.append("repo", repo);
-        builder.append("downloadUri", downloadUri);
-        builder.append("mimeType", mimeType);
-        builder.append("size", size);
-        builder.append("created", created);
-        builder.append("lastModified", lastModified);
-        builder.append("lastUpdated", lastUpdated);
-        builder.append("checksums", checksums);
-    }
 
     public String getRepo() {
         return repo;
@@ -127,15 +111,6 @@ public class FileInfo extends ModelWithUri implements IsArtifactInfo {
         private String md5;
 
         private String sha1;
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        protected void appendToString(final ToStringBuilder builder) {
-            builder.append("md5", md5);
-            builder.append("sha1", sha1);
-        }
 
         public String getMd5() {
             return md5;

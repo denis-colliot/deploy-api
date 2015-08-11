@@ -1,6 +1,8 @@
 package fr.osb.deployapi.repository.artifactory.mapping;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
+import java.util.Collection;
 
 /**
  * Created on 28/04/15.
@@ -13,26 +15,17 @@ abstract class AbstractModel {
      * {@inheritDoc}
      */
     @Override
-    public String toString() {
-        final ToStringBuilder builder = new ToStringBuilder(this);
-        appendToString(builder);
-        return builder.toString();
+    public final String toString() {
+        return ReflectionToStringBuilder.toStringExclude(this, getExcludeFieldNames());
     }
 
     /**
-     * <p>Appends the necessary properties to the given {@code builder}.
-     * Avoid appending large data or collection.</p>
-     * <p>Use it this way:</p>
-     * <pre>
-     * builder.append("property name", property);
-     * builder.append("other property name", otherProperty);
-     * </pre>
+     * Returns the field names to exclude from {@code toString()} representation.
      *
-     * @param builder
-     *         The {@code toString} builder, never {@code null}.
+     * @return The field names to exclude from {@code toString()} representation.
      */
-    protected void appendToString(final ToStringBuilder builder) {
-        // Default implementation does nothing.
+    protected Collection<String> getExcludeFieldNames() {
+        return null;
     }
 
 }

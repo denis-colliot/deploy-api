@@ -2,7 +2,6 @@ package fr.osb.deployapi.repository.artifactory.mapping;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,14 +21,6 @@ public class BuildsNumbers extends ModelWithUri {
     private static final Logger LOGGER = LoggerFactory.getLogger(BuildsNumbers.class);
 
     private List<BuildNumber> buildsNumbers;
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void appendToString(final ToStringBuilder builder) {
-        builder.append("buildsNumbers", buildsNumbers);
-    }
 
     /**
      * Finds the latest build number.
@@ -67,14 +58,6 @@ public class BuildsNumbers extends ModelWithUri {
 
         public BuildNumber(final String uri) {
             setUri(uri);
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        protected void appendToString(final ToStringBuilder builder) {
-            builder.append("number", number);
         }
 
         /**

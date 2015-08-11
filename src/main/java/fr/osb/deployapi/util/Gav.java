@@ -3,9 +3,6 @@ package fr.osb.deployapi.util;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Maven "<b>G</b>roup - <b>A</b>rtifact - <b>V</b>ersion" corresponding java bean.
  *
@@ -27,24 +24,6 @@ public final class Gav {
         group = split[0];
         artifact = split[1];
         version = split[2];
-    }
-
-    /**
-     * Returns the GAV bean as a map containing following data:
-     * <ul>
-     * <li>{@code g} - group value</li>
-     * <li>{@code a} - artifact value</li>
-     * <li>{@code v} - version value</li>
-     * </ul>
-     *
-     * @return
-     */
-    public Map<String, String> asUrlVariables() {
-        final Map<String, String> urlVariables = new HashMap<>();
-        urlVariables.put("g", group);
-        urlVariables.put("a", artifact);
-        urlVariables.put("v", version);
-        return urlVariables;
     }
 
     /**
