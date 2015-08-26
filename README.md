@@ -1,4 +1,4 @@
-# Deployment API
+# Deployment API [![Build Status](https://travis-ci.org/denis-colliot/deploy-api.svg)](https://travis-ci.org/denis-colliot/deploy-api)
 
 ## Introduction
 
